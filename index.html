@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tuhin | Cinematographer & Video Editor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --primary: #2e1065;
+            --secondary: #7c3aed;
+            --accent: #10b981;
+            --dark: #1e1b4b;
+            --light: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--light);
+            color: #1e1b4b;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, rgba(46, 16, 101, 0.9) 0%, rgba(124, 58, 237, 0.8) 100%);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .portfolio-item {
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .portfolio-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(46, 16, 101, 0.8);
+            opacity: 0;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+        
+        .skill-bar {
+            height: 8px;
+            background-color: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            background-color: var(--secondary);
+            border-radius: 4px;
+            transition: width 1.5s ease;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        .delay-100 {
+            animation-delay: 0.1s;
+        }
+        
+        .delay-200 {
+            animation-delay: 0.2s;
+        }
+        
+        .delay-300 {
+            animation-delay: 0.3s;
+        }
+        
+        .delay-400 {
+            animation-delay: 0.4s;
+        }
+        
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translate(-50%, 0);
+            }
+            40% {
+                transform: translate(-50%, -20px);
+            }
+            60% {
+                transform: translate(-50%, -10px);
+            }
+        }
+        
+        .testimonial-card {
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            overflow: hidden;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md fixed w-full z-10">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <img src="https://placehold.co/50x50" alt="Tuhin's logo - abstract camera lens design with violet gradient" class="h-10 mr-2">
+                    <span class="text-xl font-bold text-purple-900">Tuhin</span>
+                </div>
+                
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link text-purple-900 font-medium">Home</a>
+                    <a href="#about" class="nav-link text-purple-900 font-medium">About</a>
+                    <a href="#portfolio" class="nav-link text-purple-900 font-medium">Portfolio</a>
+                    <a href="#services" class="nav-link text-purple-900 font-medium">Services</a>
+                    <a href="#testimonials" class="nav-link text-purple-900 font-medium">Testimonials</a>
+                    <a href="#contact" class="nav-link text-purple-900 font-medium">Contact</a>
+                </div>
+                
+                <div class="md:hidden">
+                    <button class="text-purple-900 focus:outline-none" id="menu-btn">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile menu -->
+            <div class="md:hidden hidden bg-white py-2 px-4 mt-2 rounded shadow-lg" id="mobile-menu">
+                <a href="#home" class="block py-2 text-purple-900">Home</a>
+                <a href="#about" class="block py-2 text-purple-900">About</a>
+                <a href="#portfolio" class="block py-2 text-purple-900">Portfolio</a>
+                <a href="#services" class="block py-2 text-purple-900">Services</a>
+                <a href="#testimonials" class="block py-2 text-purple-900">Testimonials</a>
+                <a href="#contact" class="block py-2 text-purple-900">Contact</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section id="home" class="hero relative min-h-screen flex items-center justify-center text-white pt-20">
+        <div class="container mx-auto px-6 text-center">
+            <div class="max-w-4xl mx-auto mb-12 animate-fade-in-up">
+                <h4 class="text-purple-200 mb-4">Hello, I'm</h4>
+                <h1 class="text-5xl md:text-7xl font-bold mb-6">Tuhin</h1>
+                <div class="relative inline-block">
+                    <h2 class="text-2xl md:text-3xl font-medium mb-8 inline-block">Visual Storyteller &nbsp;</h2>
+                    <div class="ml-2 inline-block text-purple-200" id="typed-text"></div>
+                </div>
+                <p class="text-lg md:text-xl text-purple-100 mb-10 max-w-2xl mx-auto">I craft compelling visual narratives that captivate audiences and elevate brands through cinematography, editing, and social media strategy.</p>
+                <div class="flex justify-center space-x-4">
+                    <a href="#contact" class="bg-white text-purple-800 px-8 py-3 rounded-full font-medium hover:bg-purple-100 transition duration-300">Get in Touch</a>
+                    <a href="#portfolio" class="border-2 border-white text-white px-8 py-3 rounded-full font-medium hover:bg-white hover:text-purple-800 transition duration-300">View Work</a>
+                </div>
+            </div>
+            
+            <a href="#about" class="scroll-down">
+                <i class="fas fa-chevron-down text-2xl"></i>
+            </a>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-purple-900 mb-4">About Me</h2>
+                <div class="w-20 h-1 bg-purple-600 mx-auto"></div>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-10 lg:mb-0 lg:pr-10 animate-fade-in-up">
+                    <img src="https://placehold.co/600x800" alt="Tuhin smiling in a relaxed pose wearing casual clothes in a Kolkata street setting with warm lighting" class="rounded-lg shadow-xl w-full max-w-md mx-auto">
+                </div>
+                
+                <div class="lg:w-1/2 animate-fade-in-up delay-100">
+                    <h3 class="text-2xl font-bold text-purple-900 mb-6">Who is Tuhin?</h3>
+                    <p class="text-gray-700 mb-6">I'm a 25-year-old cinematographer, video editor, and social media strategist based in the vibrant city of Kolkata. With a passion for storytelling and an eye for detail, I help brands and creators communicate their message through powerful visuals.</p>
+                    
+                    <div class="mb-8">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-purple-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-camera text-purple-600"></i>
+                            </div>
+                            <h4 class="text-lg font-semibold text-purple-900">Cinematographer</h4>
+                        </div>
+                        <p class="text-gray-700 ml-16">Specializing in narrative and commercial cinematography with a focus on lighting and composition.</p>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-purple-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-film text-purple-600"></i>
+                            </div>
+                            <h4 class="text-lg font-semibold text-purple-900">Video Editor</h4>
+                        </div>
+                        <p class="text-gray-700 ml-16">Expert in Adobe Premiere Pro and After Effects with 5+ years of experience in post-production.</p>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-purple-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-hashtag text-purple-600"></i>
+                            </div>
+                            <h4 class="text-lg font-semibold text-purple-900">Social Media Manager</h4>
+                        </div>
+                        <p class="text-gray-700 ml-16">Helping brands grow their digital presence through strategic content creation and community engagement.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Skills Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-purple-900 mb-4">My Skills</h2>
+                <div class="w-20 h-1 bg-purple-600 mx-auto"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-10 max-w-4xl mx-auto">
+                <div class="animate-fade-in-up">
+                    <div class="flex justify-between mb-2">
+                        <span class="font-medium text-gray-800">Cinematography</span>
+                        <span class="text-purple-600">95%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 95%;"></div>
+                    </div>
+                </div>
+                
+                <div class="animate-fade-in-up delay-100">
+                    <div class="flex justify-between mb-2">
+                        <span class="font-medium text-gray-800">Video Editing</span>
+                        <span class="text-purple-600">90%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 90%;"></div>
+                    </div>
+                </div>
+                
+                <div class="animate-fade-in-up delay-200">
+                    <div class="flex justify-between mb-2">
+                        <span class="font-medium text-gray-800">Color Grading</span>
+                        <span class="text-purple-600">85%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 85%;"></div>
+                    </div>
+                </div>
+                
+                <div class="animate-fade-in-up delay-300">
+                    <div class="flex justify-between mb-2">
+                        <span class="font-medium text-gray-800">Social Media Strategy</span>
+                        <span class="text-purple-600">88%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 88%;"></div>
+                    </div>
+                </div>
+                
+                <div class="animate-fade-in-up delay-400">
+                    <div class="flex justify-between mb-2">
+                        <span class="font-medium text-gray-800">Adobe Premiere Pro</span>
+                        <span class="text-purple-600">92%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 92%;"></div>
+                    </div>
+                </div>
+                
+                <div class="animate-fade-in-up delay-400">
+                    <div class="flex justify-between mb-2">
+                        <span class="font-medium text-gray-800">After Effects</span>
+                        <span class="text-purple-600">85%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 85%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-purple-900 mb-4">My Portfolio</h2>
+                <div class="w-20 h-1 bg-purple-600 mx-auto"></div>
+                <p class="text-gray-600 mt-6 max-w-2xl mx-auto">A selection of my recent cinematography, editing, and content creation projects.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 filter-container">
+                <div class="portfolio-item rounded-lg overflow-hidden shadow-md relative">
+                    <img src="https://placehold.co/800x500" alt="Commercial advertisement for a luxury watch brand with cinematic lighting and slow motion close-ups of the timepiece" class="w-full h-64 object-cover">
+                    <div class="portfolio-overlay">
+                        <h4 class="text-white text-xl font-bold mb-2">Titan Watches Ad</h4>
+                        <p class="text-purple-100 mb-4 px-4 text-center">Cinematography & Editing</p>
+                        <a href="#" class="text-white border-2 border-white px-4 py-2 rounded-full hover:bg-white hover:text-purple-800 transition duration-300">View Project</a>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item rounded-lg overflow-hidden shadow-md relative">
+                    <img src="https://placehold.co/800x500" alt="Music video featuring a Bengali Indie band performing on a rooftop at sunset with warm tones" class="w-full h-64 object-cover">
+                    <div class="portfolio-overlay">
+                        <h4 class="text-white text-xl font-bold mb-2">Neel & The Lost Souls</h4>
+                        <p class="text-purple-100 mb-4 px-4 text-center">Music Video Production</p>
+                        <a href="#" class="text-white border-2 border-white px-4 py-2 rounded-full hover:bg-white hover:text-purple-800 transition duration-300">View Project</a>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item rounded-lg overflow-hidden shadow-md relative">
+                    <img src="https://placehold.co/800x500" alt="Behind the scenes documentary of a Kolkata street food vendor with intimate close-ups of cooking process" class="w-full h-64 object-cover">
+                    <div class="portfolio-overlay">
+                        <h4 class="text-white text-xl font-bold mb-2">Street Food Chronicles</h4>
+                        <p class="text-purple-100 mb-4 px-4 text-center">Documentary Cinematography</p>
+                        <a href="#" class="text-white border-2 border-white px-4 py-2 rounded-full hover:bg-white hover:text-purple-800 transition duration-300">View Project</a>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item rounded-lg overflow-hidden shadow-md relative">
+                    <img src="https://placehold.co/800x500" alt="Social media campaign visuals for an eco-friendly brand featuring models in natural outdoor settings" class="w-full h-64 object-cover">
+                    <div class="portfolio-overlay">
+                        <h4 class="text-white text-xl font-bold mb-2">Greenlife Campaign</h4>
+                        <p class="text-purple-100 mb-4 px-4 text-center">Social Content Creation</p>
+                        <a href="#" class="text-white border-2 border-white px-4 py-2 rounded-full hover:bg-white hover:text-purple-800 transition duration-300">View Project</a>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item rounded-lg overflow-hidden shadow-md relative">
+                    <img src="https://placehold.co/800x500" alt="Short film showing a dramatic monologue in black and white cinematography with high contrast lighting" class="w-full h-64 object-cover">
+                    <div class="portfolio-overlay">
+                        <h4 class="text-white text-xl font-bold mb-2">The Monologue</h4>
+                        <p class="text-purple-100 mb-4 px-4 text-center">Short Film Production</p>
+                        <a href="#" class="text-white border-2 border-white px-4 py-2 rounded-full hover:bg-white hover:text-purple-800 transition duration-300">View Project</a>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item rounded-lg overflow-hidden shadow-md relative">
+                    <img src="https://placehold.co/800x500" alt="Before and after comparison of a brand's social media feed showing transformation to cohesive aesthetic" class="w-full h-64 object-cover">
+                    <div class="portfolio-overlay">
+                        <h4 class="text-white text-xl font-bold mb-2">Social Media Makeover</h4>
+                        <p class="text-purple-100 mb-4 px-4 text-center">Instagram Strategy</p>
+                        <a href="#" class="text-white border-2 border-white px-4 py-2 rounded-full hover:bg-white hover:text-purple-800 transition duration-300">View Project</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <a href="#" class="inline-block border-2 border-purple-600 text-purple-600 px-8 py-3 rounded-full font-medium hover:bg-purple-600 hover:text-white transition duration-300">View All Projects</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-purple-900 mb-4">My Services</h2>
+                <div class="w-20 h-1 bg-purple-600 mx-auto"></div>
+                <p class="text-gray-600 mt-6 max-w-2xl mx-auto">Comprehensive visual storytelling solutions tailored to your brand's needs.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 animate-fade-in-up">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-video text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-purple-900 mb-4">Cinematography</h3>
+                    <p class="text-gray-700 mb-4">Professional video production services including concept development, shooting, and lighting for commercials, music videos, and narrative projects.</p>
+                    <ul class="text-gray-600 space-y-2 mb-6">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-purple-500 mr-2"></i>
+                            <span>Concept Development</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-purple-500 mr-2"></i>
+                            <span>Lighting Design</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-purple-500 mr-2"></i>
+                            <span>Camera Operation</span>
+                        </li>
+                    </ul>
+                    <a href="#contact" class="text-purple-600 font-medium inline-flex items-center">
+                        Get Started
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 animate-fade-in-up delay-100">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-edit text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-purple-900 mb-4">Video Editing</h3>
+                    <p class="text-gray-700 mb-4">Expert post-production services including cutting, color grading, sound design, and motion graphics to bring your footage to life.</p>
+                    <ul class="text-gray-600 space-y-2 mb-6">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-purple-500 mr-2"></i>
+                            <span>Color Grading</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-purple-500 mr-2"></i>
+                            <span>Sound Design</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-purple-500 mr-2"></i>
+                            <span>Motion Graphics</span>
+                        </li>
+                    </ul>
+                    <a href="#contact" class="text-purple-600 font-medium inline-flex items-center">
+                        Get Started
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 animate-fade-in-up delay-200">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-hashtag text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-purple-900 mb-4">Social Media Management</h3>
+                    <p class="text-gray-700 mb-4">Strategic content creation and platform management to grow your audience and strengthen your brand's digital presence.</p>
+                    <ul class="text-gray-600 space-y-2 mb-6">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-purple-500 mr-2"></i>
+                            <span>Content Strategy</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-purple-500 mr-2"></i>
+                            <span>Video Content</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-purple-500 mr-2"></i>
+                            <span>Community Engagement</span>
+                        </li>
+                    </ul>
+                    <a href="#contact" class="text-purple-600 font-medium inline-flex items-center">
+                        Get Started
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-purple-900 mb-4">Client Testimonials</h2>
+                <div class="w-20 h-1 bg-purple-600 mx-auto"></div>
+                <p class="text-gray-600 mt-6 max-w-2xl mx-auto">What my clients say about working with me.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="testimonial-card bg-gray-50 p-8 rounded-lg">
+                    <div class="flex items-center mb-6">
+                        <img src="https://placehold.co/60x60" alt="Portrait of Rajiv Mehta, CEO of a fashion brand in Kolkata with a professional headshot" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-purple-900">Rajiv Mehta</h4>
+                            <p class="text-gray-600 text-sm">CEO, Urban Threads</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic mb-6">"Tuhin transformed our social media presence with his cinematic content. Our engagement increased by 300% within three months of working with him."</p>
+                    <div class="flex text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card bg-gray-50 p-8 rounded-lg">
+                    <div class="flex items-center mb-6">
+                        <img src="https://placehold.co/60x60" alt="Portrait of Priyanka Bannerjee, Independent musician wearing stylish casual clothes" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-purple-900">Priyanka Bannerjee</h4>
+                            <p class="text-gray-600 text-sm">Independent Artist</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic mb-6">"The music video Tuhin created for my song perfectly captured its essence. His attention to detail and creative vision elevated my work immensely."</p>
+                    <div class="flex text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card bg-gray-50 p-8 rounded-lg">
+                    <div class="flex items-center mb-6">
+                        <img src="https://placehold.co/60x60" alt="Portrait of Ayan Chatterjee, marketing director at a Kolkata tech startup looking professional" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold text-purple-900">Ayan Chatterjee</h4>
+                            <p class="text-gray-600 text-sm">Marketing Director, TechNest</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic mb-6">"We've worked with Tuhin on multiple product launch videos. His ability to understand our tech products and present them accessibly is remarkable."</p>
+                    <div class="flex text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Video Showcase -->
+    <section class="py-20 bg-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-white mb-4">Video Showcase</h2>
+                <div class="w-20 h-1 bg-purple-400 mx-auto"></div>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="video-container rounded-lg overflow-hidden shadow-2xl mb-8">
+                    <iframe src="https://www.youtube.com/embed/9No-FiEInLA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Showreel of Tuhin's best cinematography and editing work from recent projects"></iframe>
+                </div>
+                <p class="text-gray-300 text-center">A compilation of my recent cinematography and editing work (placeholder YouTube link)</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-purple-900 mb-4">Get In Touch</h2>
+                <div class="w-20 h-1 bg-purple-600 mx-auto"></div>
+                <p class="text-gray-600 mt-6 max-w-2xl mx-auto">Have a project in mind? Want to collaborate? I'd love to hear from you!</p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="lg:w-1/2 animate-fade-in-up">
+                    <h3 class="text-2xl font-bold text-purple-900 mb-6">Contact Information</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-map-marker-alt text-purple-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">Location</h4>
+                                <p class="text-gray-600">Kolkata, West Bengal, India</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-envelope text-purple-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">Email</h4>
+                                <p class="text-gray-600">hello@tuhinproductions.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-phone-alt text-purple-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">Phone</h4>
+                                <p class="text-gray-600">+91 98765 43210</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-clock text-purple-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">Working Hours</h4>
+                                <p class="text-gray-600">Mon-Fri: 10AM - 7PM</p>
+                                <p class="text-gray-600">Weekends: Available for shoots</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-10">
+                        <h4 class="font-bold text-gray-800 mb-4">Follow Me</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="bg-purple-100 w-10 h-10 rounded-full flex items-center justify-center text-purple-600 hover:bg-purple-600 hover:text-white transition duration-300">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="bg-purple-100 w-10 h-10 rounded-full flex items-center justify-center text-purple-600 hover:bg-purple-600 hover:text-white transition duration-300">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                            <a href="#" class="bg-purple-100 w-10 h-10 rounded-full flex items-center justify-center text-purple-600 hover:bg-purple-600 hover:text-white transition duration-300">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="bg-purple-100 w-10 h-10 rounded-full flex items-center justify-center text-purple-600 hover:bg-purple-600 hover:text-white transition duration-300">
+                                <i class="fab fa-vimeo-v"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2 animate-fade-in-up delay-100">
+                    <form id="contact-form" class="bg-gray-50 p-8 rounded-lg shadow-sm">
+                        <div class="mb-6">
+                            <label for="name" class="block text-gray-700 font-medium mb-2">Your Name</label>
+                            <input type="text" id="name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="Enter your name" required>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="email" class="block text-gray-700 font-medium mb-2">Email Address</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="Enter your email" required>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="subject" class="block text-gray-700 font-medium mb-2">Subject</label>
+                            <input type="text" id="subject" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="What's this about?" required>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="message" class="block text-gray-700 font-medium mb-2">Your Message</label>
+                            <textarea id="message" rows="5" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="Tell me about your project" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-purple-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-purple-700 transition duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2">
+                            Send Message
+                            <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                        
+                        <div id="form-message" class="hidden mt-4 p-4 rounded-lg"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-purple-900 text-white py-10">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <div class="flex items-center">
+                        <img src="https://placehold.co/40x40" alt="Tuhin's logo - abstract camera lens design with white outline" class="h-8 mr-2">
+                        <span class="text-xl font-bold">Tuhin</span>
+                    </div>
+                    <p class="mt-2 text-purple-200">Cinematographer • Editor • Visual Storyteller</p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="#home" class="text-purple-200 hover:text-white transition duration-300">Home</a>
+                    <a href="#about" class="text-purple-200 hover:text-white transition duration-300">About</a>
+                    <a href="#portfolio" class="text-purple-200 hover:text-white transition duration-300">Portfolio</a>
+                    <a href="#contact" class="text-purple-200 hover:text-white transition duration-300">Contact</a>
+                </div>
+            </div>
+            
+            <div class="border-t border-purple-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-purple-300 mb-4 md:mb-0">© 2023 Tuhin Productions. All rights reserved.</p>
+                
+                <div class="flex space-x-4">
+                    <a href="#" class="text-purple-300 hover:text-white transition duration-300">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="text-purple-300 hover:text-white transition duration-300">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="#" class="text-purple-300 hover:text-white transition duration-300">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="text-purple-300 hover:text-white transition duration-300">
+                        <i class="fab fa-vimeo-v"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+        
+        // Typewriter effect
+        const typedText = document.getElementById('typed-text');
+        const texts = ["Cinematographer", "Video Editor", "Content Creator", "Social Media Manager", "Visual Storyteller"];
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typingSpeed = 100;
+        
+        function type() {
+            const currentText = texts[textIndex];
+            
+            if (isDeleting) {
+                typedText.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                typingSpeed = 50;
+            } else {
+                typedText.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+                typingSpeed = 100;
+            }
+            
+            if (!isDeleting && charIndex === currentText.length) {
+                isDeleting = true;
+                typingSpeed = 1500; // Pause at end of word
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex++;
+                if (textIndex === texts.length) textIndex = 0;
+                typingSpeed = 500; // Pause before typing next word
+            }
+            
+            setTimeout(type, typingSpeed);
+        }
+        
+        // Start the typewriter effect
+        setTimeout(type, 1000);
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu if open
+                const mobileMenu = document.getElementById('mobile-menu');
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+        
+        // Form submission
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formMessage = document.getElementById('form-message');
+            formMessage.classList.remove('hidden', 'bg-red-100', 'text-red-700', 'bg-green-100', 'text-green-700');
+            
+            // Simulate form submission
+            setTimeout(() => {
+                formMessage.textContent = "Thanks for your message! I'll get back to you soon.";
+                formMessage.classList.add('bg-green-100', 'text-green-700');
+                this.reset();
+            }, 1000);
+        });
+        
+        // Animate skill bars on scroll
+        function animateSkills() {
+            const skillBars = document.querySelectorAll('.skill-progress');
+            
+            skillBars.forEach(bar => {
+                if (isElementInViewport(bar)) {
+                    const width = bar.style.width;
+                    bar.style.width = '0';
+                    setTimeout(() => {
+                        bar.style.width = width;
+                    }, 100);
+                }
+            });
+        }
+        
+        function isElementInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.bottom >= 0
+            );
+        }
+        
+        window.addEventListener('scroll', animateSkills);
+        window.addEventListener('load', animateSkills);
+    </script>
+</body>
+</html>
